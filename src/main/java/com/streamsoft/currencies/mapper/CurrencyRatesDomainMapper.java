@@ -14,20 +14,20 @@ import com.streamsoft.currencies.domain.RatesFromCurrencyDto;
 import com.streamsoft.currencies.domain.RatesFromTableDto;
 
 @Component
-public class ExchangeRateMapper {
+public final class CurrencyRatesDomainMapper {
 	
-	public List<CurrencyRate> mapToExchangeRateFromCurrency(RatesFromCurrencyDto ratesDto){
+	public List<CurrencyRate> mapToExchangeRatesFromCurrency(RatesFromCurrencyDto ratesDto){
 		Currency currency = new Currency(ratesDto.getCurrency(), ratesDto.getCode());
 		List<CurrencyRate> currencyRates = new ArrayList<>();
 		for(RateFromCurrencyDto operationalRateForCur : ratesDto.getRates()) {
-			Rate operationalRate = new Rate(operationalRateForCur.getNo(), ratesDto.getTable(), operationalRateForCur.getEffectiveDate(), operationalRateForCur.getTradingDate().orElse(null));
-			currencyRates.add(new CurrencyRate(operationalRate, currency, operationalRateForCur.getMid().orElse(null), operationalRateForCur.getBid().orElse(null), operationalRateForCur.getAsk().orElse(null)));
+			Rate operationalRate = new Rate(operationalRateForCur.getNo(), ratesDto.getTable(), operationalRateForCur.getEffectiveDate(), operationalRateForCur.getTradingDate());
+			currencyRates.add(new CurrencyRate(operationalRate, currency, operationalRateForCur.getMid(), operationalRateForCur.getBid(), operationalRateForCur.getAsk()));
 		}
 		return currencyRates;
 	}
 	
-	public List<CurrencyRate> mapToExchangeRateFromTable(RatesFromTableDto ratesDto){
-		Rate rate = new Rate(ratesDto.getNo(), ratesDto.getTable(), ratesDto.getEffectiveDate(), ratesDto.getTradingDate().orElse(null));
+	public List<CurrencyRate> mapToExchangeRatesFromTable(RatesFromTableDto ratesDto){
+		Rate rate = new Rate(ratesDto.getNo(), ratesDto.getTable(), ratesDto.getEffectiveDate(), ratesDto.getTradingDate());
 		List<CurrencyRate> currencyRates = new ArrayList<>();
 		for(RateFromTableDto operationalRate : ratesDto.getRates()) {
 			Currency currency = new Currency(operationalRate.getCurrency(), operationalRate.getCode());

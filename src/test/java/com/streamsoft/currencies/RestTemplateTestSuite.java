@@ -1,6 +1,7 @@
 package com.streamsoft.currencies;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,23 +10,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.streamsoft.currencies.controller.RequestParam;
+import com.streamsoft.currencies.controller.CurrencyExchangeRateQueryParam;
+import com.streamsoft.currencies.domain.CurrencyRate;
 import com.streamsoft.currencies.domain.RateFromCurrencyDto;
 import com.streamsoft.currencies.domain.RatesFromCurrencyDto;
-import com.streamsoft.currencies.service.NBPService;
+import com.streamsoft.currencies.service.NBPGetCurrencyRatesService;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class RestTemplateTestSuite {
 	@Autowired
-	NBPService service;
+	NBPGetCurrencyRatesService service;
 	
 	@Test
 	public void testRequestCurrencyRatesForCurrentRate() {
 		//Given
-		RequestParam param = new RequestParam("A", "USD", null, null, null, null);
+		CurrencyExchangeRateQueryParam param = new CurrencyExchangeRateQueryParam("A", "USD", null, null, null, null);
 		//When
-		RatesFromCurrencyDto rates = service.requestCurrencyRates(param);
+		List<CurrencyRate> rates = service.getCurrencyRates(param);
 		System.out.println(rates.getTable() + ", " + rates.getCurrency() + ", " + rates.getCode());
 		boolean result = true;
 		for(RateFromCurrencyDto currentRate : rates.getRates()){
@@ -41,9 +43,9 @@ public class RestTemplateTestSuite {
 	@Test
 	public void testRequestCurrencyRatesForSpecifiedDate() {
 		//Given
-		RequestParam param = new RequestParam("A", "USD", null, LocalDate.of(2018, 3, 20), null, null);
+		CurrencyExchangeRateQueryParam param = new CurrencyExchangeRateQueryParam("A", "USD", null, LocalDate.of(2018, 3, 20), null, null);
 		//When
-		RatesFromCurrencyDto rates = service.requestCurrencyRates(param);
+		List<CurrencyRate> rates = service.getCurrencyRates(param);
 		System.out.println(rates.getTable() + ", " + rates.getCurrency() + ", " + rates.getCode());
 		boolean result = true;
 		for(RateFromCurrencyDto currentRate : rates.getRates()){
@@ -59,9 +61,9 @@ public class RestTemplateTestSuite {
 	@Test
 	public void testRequestCurrencyRatesTopCount() {
 		//Given
-		RequestParam param = new RequestParam("A", "USD", 5, null, null, null);
+		CurrencyExchangeRateQueryParam param = new CurrencyExchangeRateQueryParam("A", "USD", 5, null, null, null);
 		//When
-		RatesFromCurrencyDto rates = service.requestCurrencyRates(param);
+		List<CurrencyRate> rates = service.getCurrencyRates(param);
 		System.out.println(rates.getTable() + ", " + rates.getCurrency() + ", " + rates.getCode());
 		boolean result = true;
 		for(RateFromCurrencyDto currentRate : rates.getRates()){

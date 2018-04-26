@@ -3,7 +3,7 @@ package com.streamsoft.currencies.controller;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public class RequestParam {
+public class CurrencyExchangeRateQueryParam {
 	private String table;
 	private  String code;
 	private  Integer topCount;
@@ -11,17 +11,21 @@ public class RequestParam {
 	private  LocalDate startDate;
 	private  LocalDate endDate;
 	
-	
-	
-	public RequestParam(String table, String code, Integer topCount, LocalDate date, LocalDate startDate,
-			LocalDate endDate) {
+	public CurrencyExchangeRateQueryParam(String table) {
 		super();
 		this.table = table;
-		this.code = code;
+	}
+		
+	public CurrencyExchangeRateQueryParam(String table, Integer topCount) {
+		super();
+		this.table = table;
 		this.topCount = topCount;
+	}
+	
+	public CurrencyExchangeRateQueryParam(String table, LocalDate date) {
+		super();
+		this.table = table;
 		this.date = date;
-		this.startDate = startDate;
-		this.endDate = endDate;
 	}
 	
 	public String getTable() {

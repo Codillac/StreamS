@@ -20,7 +20,7 @@ public class CurrenciesController {
 	
 	@RequestMapping(value ="/table/{table}/currency/{code}/frompln/{value}", method = RequestMethod.GET )
 	public BigDecimal getCurrencyCurrentRate(@PathVariable String table, @PathVariable String code, @PathVariable BigDecimal value) {
-		RequestDto requestDto = new RequestDto(value, new RequestParamDto(table, code));
+		CurrencyExchangeRateQueryDto requestDto = new CurrencyExchangeRateQueryDto(value, new CurrencyExchangeRateQueryParamDto(table, code));
 		return service.executeRequest(requestDto).calculateResult();
 	}
 }

@@ -1,5 +1,5 @@
 package com.streamsoft.currencies.controller;
 
-public class ResultDto {
+public class CurrencyExchangeRateQueryResultDto {
 
 }

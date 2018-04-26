@@ -2,7 +2,6 @@ package com.streamsoft.currencies.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -28,16 +27,16 @@ public class RateFromCurrencyDto {
 	public LocalDate getEffectiveDate() {
 		return effectiveDate;
 	}
-	public Optional<LocalDate> getTradingDate() {
-		return Optional.ofNullable(tradingDate);
+	public LocalDate getTradingDate() {
+		return tradingDate;
 	}
-	public Optional<BigDecimal> getMid() {
-		return Optional.ofNullable(mid);
+	public BigDecimal getMid() {
+		return mid;
 	}
-	public Optional<BigDecimal> getBid() {
-		return Optional.ofNullable(bid);
+	public BigDecimal getBid() {
+		return bid;
 	}
-	public Optional<BigDecimal> getAsk() {
-		return Optional.ofNullable(ask);
+	public BigDecimal getAsk() {
+		return ask;
 	}
 }

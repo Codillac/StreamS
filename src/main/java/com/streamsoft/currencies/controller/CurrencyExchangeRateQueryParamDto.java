@@ -2,7 +2,7 @@ package com.streamsoft.currencies.controller;
 
 import java.time.LocalDate;
 
-public class RequestParamDto {
+public class CurrencyExchangeRateQueryParamDto {
 	private String table;
 	private  String code;
 	private  Integer topCount;
@@ -10,12 +10,12 @@ public class RequestParamDto {
 	private  LocalDate startDate;
 	private  LocalDate endDate;
 		
-	public RequestParamDto(String table, String code) {
+	public CurrencyExchangeRateQueryParamDto(String table, String code) {
 		this.table = table;
 		this.code = code;
 	}
 
-	public RequestParamDto(String table, String code, Integer topCount, LocalDate date, LocalDate startDate,
+	public CurrencyExchangeRateQueryParamDto(String table, String code, Integer topCount, LocalDate date, LocalDate startDate,
 			LocalDate endDate) {
 		this.table = table;
 		this.code = code;

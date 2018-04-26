@@ -6,7 +6,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class CoreConfiguration implements WebMvcConfigurer {
+public class RestTemplateConfiguration implements WebMvcConfigurer {
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();

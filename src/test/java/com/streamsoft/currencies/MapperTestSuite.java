@@ -9,33 +9,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.streamsoft.currencies.controller.RequestParam;
+import com.streamsoft.currencies.controller.CurrencyExchangeRateQueryParam;
 import com.streamsoft.currencies.domain.CurrencyRate;
-import com.streamsoft.currencies.domain.RatesFromCurrencyDto;
-import com.streamsoft.currencies.mapper.ExchangeRateMapper;
-import com.streamsoft.currencies.service.NBPService;
+import com.streamsoft.currencies.mapper.CurrencyRatesDomainMapper;
+import com.streamsoft.currencies.service.NBPGetCurrencyRatesService;
+import com.streamsoft.currencies.valid.NoCurrencyRatesException;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class MapperTestSuite {
 	@Autowired
-	NBPService service;
+	NBPGetCurrencyRatesService service;
 	
 	@Autowired
-	ExchangeRateMapper mapper;
+	CurrencyRatesDomainMapper mapper;
 	
 	@Test
-	public void testMapToExchangeRateFromCurrency() {
+	public void testMapToExchangeRateFromCurrency() throws NoCurrencyRatesException {
 		//Given
 		int NUMBER_OF_REQUESTED_RATES = 5;
-		RequestParam param = new RequestParam("A", "USD", NUMBER_OF_REQUESTED_RATES, null, null, null);
-		RatesFromCurrencyDto ratesDto = service.requestCurrencyRates(param);
+		CurrencyExchangeRateQueryParam param = new CurrencyExchangeRateQueryParam("A", "USD", NUMBER_OF_REQUESTED_RATES, null, null, null);
+
 		//When
-		List<CurrencyRate> resultRates = mapper.mapToExchangeRateFromCurrency(ratesDto);
-		for(CurrencyRate operationalRate : resultRates) {
-			System.out.println(operationalRate.getCurrency().getName() + ": " + operationalRate.getMid());
-		}
+		List<CurrencyRate> resultList = service.getCurrencyRates(param);
 		//Then
-		Assert.assertEquals(resultRates.size(), NUMBER_OF_REQUESTED_RATES);
+		Assert.assertEquals(resultList.size(), NUMBER_OF_REQUESTED_RATES);
 	}
 }
